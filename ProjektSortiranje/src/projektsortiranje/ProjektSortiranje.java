@@ -1,21 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package projektsortiranje;
 
-/**
- *
- * @author matea
- */
-public class ProjektSortiranje {
 
-    /**
-     * @param args the command line arguments
-     */
+import java.util.ArrayList;
+import javax.swing.JFrame;
+
+
+
+public class ProjektSortiranje {
+    private final JFrame prozor;
+    
+    public static final int PROZOR_SIRINA = 1280;
+    public static final int PROZOR_VISINA = 720;
+    
+    private final ArrayList<Ekran> ekrani; //mislim da valjda treba napraviti klasu ekran
+    
+    public ProjektSortiranje() {
+        ekrani = new ArrayList<>();
+        prozor = new JFrame ("Sortiranje");
+        prozor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        prozor.setVisible(true);
+    }
+    
+    
+
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        SwingUtilities.invokeLater( () -> {
+            new ProjektSortiranje().start(); //
+        });
     }
     
 }
