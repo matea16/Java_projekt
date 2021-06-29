@@ -15,7 +15,7 @@ import static projektsortiranje.ProjektSortiranje.PROZOR_VISINA;
  *
  * @author martinaradenic
  */
-public class Ekran extends JPanel{
+public abstract class Ekran extends JPanel{
     protected ProjektSortiranje aplikacija;
     
     //konstruktor
@@ -30,4 +30,6 @@ public class Ekran extends JPanel{
     {
         return new Dimension(PROZOR_SIRINA, PROZOR_VISINA);
     }
+    
+    public abstract void otvori();
 }

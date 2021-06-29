@@ -2,6 +2,8 @@
 package projektsortiranje;
 
 
+import ekrani.Ekran;
+import ekrani.GlavniIzbornik;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
