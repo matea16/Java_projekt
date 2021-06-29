@@ -23,8 +23,10 @@ public class ProjektSortiranje {
         prozor.setVisible(true);
     }
     
-    
-
+    public void start() {
+        pushScreen(new GlavniIzbornik(this));
+        prozor.pack();
+    }
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater( () -> {
