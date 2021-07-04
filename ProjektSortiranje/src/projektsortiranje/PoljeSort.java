@@ -46,4 +46,16 @@ public class PoljeSort extends JPanel{
         }
 
     }
+    
+    public void swap(int i, int j, long odgoda, boolean zastavica){
+        
+    }
+    
+    public int velicinaPolja() {
+        return polje.length;
+    }
+    
+    public int vrijednost(int index) {
+        return polje[index];
+    }
 }
