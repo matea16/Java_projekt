@@ -5,6 +5,7 @@
  */
 package ekrani;
 
+import algoritmisortiranja.SortSucelje;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import projektsortiranje.ProjektSortiranje;
@@ -37,9 +38,12 @@ public class GlavniIzbornik extends Ekran{
     //doraditi konstruktor
     private class IzborAlgoritama{
         private final JCheckBox box;
+        //o kojem se algoritmu radi
+        private final SortSucelje algoritam;
         
-        public IzborAlgoritama(JCheckBox box) {
+        public IzborAlgoritama(SortSucelje algoritam, JCheckBox box) {
             this.box = box;
+            this.algoritam = algoritam;
         }
         
         public void unselect() {
@@ -49,6 +53,10 @@ public class GlavniIzbornik extends Ekran{
         
         public boolean isSelected() {
             return box.isSelected();
+        }
+        
+        public SortSucelje algoritam(){
+            return algoritam;
         }
     }
     
