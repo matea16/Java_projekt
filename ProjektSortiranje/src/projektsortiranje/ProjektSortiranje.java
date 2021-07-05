@@ -16,7 +16,7 @@ public class ProjektSortiranje {
     public static final int PROZOR_SIRINA = 1280;
     public static final int PROZOR_VISINA = 720;
     
-    private final ArrayList<Ekran> ekrani; //mislim da valjda treba napraviti klasu ekran
+    private final ArrayList<Ekran> ekrani;
     
     public ProjektSortiranje() {
         ekrani = new ArrayList<>();
@@ -25,8 +25,39 @@ public class ProjektSortiranje {
         prozor.setVisible(true);
     }
     
+    public Ekran getTrenutniEkran(){
+        return ekrani.get(ekrani.size()-1);
+    }
+    
+    public void pushEkran (Ekran ekran){
+        if (!ekrani.isEmpty()){
+            prozor.remove(getTrenutniEkran());
+        }
+        ekrani.add(ekran);
+        prozor.setContentPane(ekran);
+        prozor.validate();
+        ekran.otvori();
+    }
+    
+    public void popEkran(){
+        if (!ekrani.isEmpty()){
+            Ekran prosli = getTrenutniEkran();
+            ekrani.remove(prosli);
+            prozor.remove(prosli);
+            if (!ekrani.isEmpty()){
+                Ekran trenutni = getTrenutniEkran();
+                prozor.setContentPane(trenutni);
+                prozor.validate();
+                trenutni.otvori();
+            }
+            else{
+                prozor.dispose();
+            }
+        }
+    }
+    
     public void start() {
-        pushScreen(new GlavniIzbornik(this));
+        pushEkran(new GlavniIzbornik(this));
         prozor.pack();
     }
     
