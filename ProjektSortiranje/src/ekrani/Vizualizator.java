@@ -6,13 +6,14 @@
 package ekrani;
 
 import algoritmisortiranja.SortSucelje;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import projektsortiranje.PoljeSort;
 import projektsortiranje.ProjektSortiranje;
 
 /**
  *
- * @author juricaradenic
+ * @author martinaradenic
  */
 public class Vizualizator extends Ekran{
     private final PoljeSort polje;
@@ -22,13 +23,18 @@ public class Vizualizator extends Ekran{
         super(apl);
         polje = new PoljeSort();
         kakoSortirati = algoritmi;
+        //postavljanje layouta
+        setLayout(new BorderLayout());
+        add(polje, BorderLayout.CENTER);
         
     }
             
 
     @Override
     public void otvori() {
+        //Swing worker koji spava, onda shuffle i pokrene sort
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
     
 }
