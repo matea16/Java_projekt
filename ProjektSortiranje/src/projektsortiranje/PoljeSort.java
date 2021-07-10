@@ -1,8 +1,7 @@
 
 package projektsortiranje;
 
-import java.awt.AlphaComposite;
-import java.awt.BorderLayout;
+import algoritmisortiranja.SortSucelje;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,8 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 
 public class PoljeSort extends JPanel{
@@ -31,7 +28,7 @@ public class PoljeSort extends JPanel{
     private final int[] barBoja;
     private String imeAlgoritma = "";
     
-    private ISortAlgorithm algoritam;
+    private SortSucelje algoritam;
 
   
     private long delay = 0;
@@ -110,7 +107,7 @@ public class PoljeSort extends JPanel{
     }
     
         @Override
-    public Dimension trazenaVelicina() {
+    public Dimension getPreferredSize() {
         return new Dimension(DEFAULT_PROZOR_SIRINA, DEFAULT_PROZOR_VISINA);
     }
     
@@ -122,8 +119,8 @@ public class PoljeSort extends JPanel{
     }
     
         @Override
-    public void crtajKomponente (Graphics g) {
-        super.crtajKomponente(g);
+    public void paintComponent (Graphics g) {
+        super.paintComponent(g);
         Graphics2D panelGraphics = (Graphics2D) g.create();
         
         try{
@@ -154,7 +151,6 @@ public class PoljeSort extends JPanel{
 			double maxVrijednost = maxVrijednost();
 		
 			BufferedImage bufferedImage = new BufferedImage(bufferedImageSirina, bufferedImageVisina, BufferedImage.TYPE_INT_ARGB);
-			makeBufferedImageTransparent(bufferedImage);
 			Graphics2D bufferedGraphics = null;
 			try
 			{
@@ -195,13 +191,13 @@ public class PoljeSort extends JPanel{
     
     
         @Override
-    public void setIme(String algorithmName) {
+    public void setName(String imeAlgoritma) {
         this.imeAlgoritma = imeAlgoritma;
     }
     
-    public void setAlgorithm(ISortAlgorithm algoritam) {
+    public void setAlgorithm(SortSucelje algoritam) {
         this.algoritam = algoritam;
-        delay = algoritam.odgodaAlgoritma();
+        delay = algoritam.odgoda();
     }
     public long odgodaAlgoritma(){
         return delay;
