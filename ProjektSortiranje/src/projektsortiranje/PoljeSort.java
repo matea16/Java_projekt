@@ -30,6 +30,9 @@ public class PoljeSort extends JPanel{
     private final int[] polje;
     private final int[] barBoja;
     private String imeAlgoritma = "";
+    
+    private ISortAlgorithm algoritam;
+
   
     private long delay = 0;
     
@@ -47,9 +50,6 @@ public class PoljeSort extends JPanel{
 
     }
     
-    public void swap(int i, int j, long odgoda, boolean zastavica){
-        
-    }
     
     public int velicinaPolja() {
         return polje.length;
@@ -58,4 +58,154 @@ public class PoljeSort extends JPanel{
     public int vrijednost(int index) {
         return polje[index];
     }
+    
+    public int maxVrijednost() {
+        return Arrays.stream(polje).max().orElse(Integer.MIN_VALUE);
+    }
+    
+    private void finalUpdate (int vrijednost, long milisekunde, boolean korak){
+        repaint();
+        try {
+            Thread.sleep(milisekunde);
+        }catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+        if (korak)
+              promjenePolja++;
+    }
+    
+    public void swap (int prviIndeks, int drugiIndeks, long milisekunde, boolean korak) {
+        int temp = polje[prviIndeks];
+        polje[prviIndeks] = polje[drugiIndeks];
+        polje[drugiIndeks] = temp;
+        
+        barBoja[prviIndeks] = 100;
+        barBoja[drugiIndeks] = 100;
+        
+        finalUpdate ((polje[prviIndeks] + polje[drugiIndeks]) / 2, milisekunde, korak);
+    }
+    
+    public void updateJednog (int indeks, int vrijednost, long milisekunde, boolean korak) {
+        polje[indeks] = vrijednost;
+        barBoja[indeks] = 100;
+        
+        finalUpdate(vrijednost, milisekunde, korak);
+        repaint();
+    }
+    
+    public void mijesanje() {
+        promjenePolja = 0;
+        Random rng = new Random();
+        for ( int i = 0; i < velicinaPolja(); i++) {
+            int swapIndeks = rng.nextInt(velicinaPolja()-1);
+            swap (i, swapIndeks, 5, false);
+        }
+        promjenePolja = 0;
+    }
+    
+    public void istakniPolje() {
+        for (int i = 0; i < velicinaPolja(); i++){
+            updateJednog(i, vrijednost(i), 5, false);
+        }
+    }
+    
+        @Override
+    public Dimension trazenaVelicina() {
+        return new Dimension(DEFAULT_PROZOR_SIRINA, DEFAULT_PROZOR_VISINA);
+    }
+    
+    public void resetBoje() {
+        for (int i = 0; i < BROJ_BAROVA; i++) {
+            barBoja[i] = 0;
+        }
+        repaint();
+    }
+    
+        @Override
+    public void crtajKomponente (Graphics g) {
+        super.crtajKomponente(g);
+        Graphics2D panelGraphics = (Graphics2D) g.create();
+        
+        try{
+            Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
+            renderingHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            panelGraphics.addRenderingHints(renderingHints);
+			panelGraphics.setColor(Color.WHITE);
+			panelGraphics.setFont(new Font("Monospaced", Font.BOLD, 20));
+			panelGraphics.drawString(" Trenutni algoitam: " + imeAlgoritma, 10, 30);
+			panelGraphics.drawString(" Promjene u polju: " + promjenePolja, 10, 80);
+
+			crtajBarove(panelGraphics);
+		} finally {
+        	panelGraphics.dispose();
+        }
+    }
+    
+    private void crtajBarove(Graphics2D panelGraphics) {
+        int barSirina = getWidth() / BROJ_BAROVA;
+		int bufferedImageSirina = barSirina * BROJ_BAROVA;
+		int bufferedImageVisina = getHeight();
+        
+		if(bufferedImageVisina > 0 && bufferedImageSirina > 0) {
+			if(bufferedImageSirina < 256) {
+				bufferedImageSirina = 256;
+			}
+			
+			double maxVrijednost = maxVrijednost();
+		
+			BufferedImage bufferedImage = new BufferedImage(bufferedImageSirina, bufferedImageVisina, BufferedImage.TYPE_INT_ARGB);
+			makeBufferedImageTransparent(bufferedImage);
+			Graphics2D bufferedGraphics = null;
+			try
+			{
+				bufferedGraphics = bufferedImage.createGraphics();
+				
+				for (int x = 0; x < BROJ_BAROVA; x++) {
+					double trenutnaVrijednost = vrijednost(x);
+					double postotakOdMax = trenutnaVrijednost / maxVrijednost;
+					double visinaPostotakPloce = postotakOdMax * BAR_VISINA_POSTOTAK;
+					int visina = (int) (visinaPostotakPloce * (double) getHeight());
+					int xPocetak = x + (barSirina - 1) * x;
+					int yPocetak = getHeight() - visina;
+					
+					int val = barBoja[x] * 2;
+					if (val > 190) {
+						bufferedGraphics.setColor(new Color(255 - val, 255, 255 - val));
+					}
+					else {
+						bufferedGraphics.setColor(new Color(255, 255 - val, 255 - val));
+					}
+					bufferedGraphics.fillRect(xPocetak, yPocetak, barSirina, visina);
+					if (barBoja[x] > 0) {
+						barBoja[x] -= 5;
+					}
+				}
+			}
+			finally
+			{
+				if(bufferedGraphics != null)
+				{
+					bufferedGraphics.dispose();
+				}
+			}
+			
+			panelGraphics.drawImage(bufferedImage, 0, 0, getWidth(), getHeight(), 0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), null);
+		} 
+    }
+    
+    
+        @Override
+    public void setIme(String algorithmName) {
+        this.imeAlgoritma = imeAlgoritma;
+    }
+    
+    public void setAlgorithm(ISortAlgorithm algoritam) {
+        this.algoritam = algoritam;
+        delay = algoritam.odgodaAlgoritma();
+    }
+    public long odgodaAlgoritma(){
+        return delay;
+    }
 }
+
+
