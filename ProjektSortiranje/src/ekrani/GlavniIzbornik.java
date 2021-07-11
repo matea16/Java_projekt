@@ -6,6 +6,7 @@
 package ekrani;
 
 import algoritmisortiranja.BubbleSort;
+import algoritmisortiranja.ParallelMergeSort;
 import algoritmisortiranja.SortSucelje;
 import java.awt.Color;
 import java.awt.Component;
@@ -73,6 +74,7 @@ public class GlavniIzbornik extends Ekran{
         //dodajemo popis svih algoritama
         Panel.setAlignmentX(Component.CENTER_ALIGNMENT);
         dodajCheckbox(new BubbleSort(), Panel);
+        dodajCheckbox(new ParallelMergeSort(), Panel);
         //...
         
         JButton pocetak = new JButton("Sortiraj!");
