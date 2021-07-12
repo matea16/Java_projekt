@@ -6,13 +6,15 @@
 package ekrani;
 
 import algoritmisortiranja.SortSucelje;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+import javax.swing.SwingWorker;
 import projektsortiranje.PoljeSort;
 import projektsortiranje.ProjektSortiranje;
 
 /**
  *
- * @author juricaradenic
+ * @author martinaradenic
  */
 public class Vizualizator extends Ekran{
     private final PoljeSort polje;
@@ -22,13 +24,69 @@ public class Vizualizator extends Ekran{
         super(apl);
         polje = new PoljeSort();
         kakoSortirati = algoritmi;
+        //postavljanje layouta
+        setLayout(new BorderLayout());
+        add(polje, BorderLayout.CENTER);
         
+    }
+    
+    private void spavaj()
+    {
+        try{
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException exc)
+        {
+            exc.printStackTrace();
+        }
+    }
+    
+    private void pomijesaj()
+    {
+        polje.mijesanje();
+        polje.resetBoje();
+        spavaj();
     }
             
 
     @Override
     public void otvori() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Swing worker koji spava, onda shuffle i pokrene sort
+        SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>()
+        {
+            @Override
+            protected Void doInBackground() throws Exception{
+                try{
+                    Thread.sleep(250);
+                }
+                catch(InterruptedException exc){
+                    exc.printStackTrace();
+                }
+                
+                for(SortSucelje algoritam : kakoSortirati)
+                {
+                    pomijesaj();
+                    
+                    polje.setName(algoritam.getIme());
+                    polje.setAlgorithm(algoritam);
+                    
+                    algoritam.pokreniSortiranje(polje);
+                    
+                    polje.resetBoje();
+                    polje.istakniPolje();
+                    polje.resetBoje();
+                    //spavaj
+                }
+                return null;
+            }
+            
+            @Override
+            public void done(){
+                aplikacija.popEkran();
+            }
+        };
+        
+        swingWorker.execute();
     }
     
 }
