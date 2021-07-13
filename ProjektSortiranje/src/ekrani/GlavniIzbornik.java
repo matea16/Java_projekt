@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ekrani;
 
 import algoritmisortiranja.BubbleSort;
@@ -26,10 +22,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import projektsortiranje.ProjektSortiranje;
 
-/**
- *
- * @author martinaradenic
- */
+
 public class GlavniIzbornik extends Ekran{
     
     //izbori mogućih algoritama
@@ -41,6 +34,8 @@ public class GlavniIzbornik extends Ekran{
         checkboxes = new ArrayList<>();
         postaviSucelje();
     }
+
+
     
     //dodat cemo funkciju za dodavanje checkboxa posto ce ih biti vise, za svaki sort jedan
     private void dodajCheckbox(SortSucelje algoritam, JPanel panel)

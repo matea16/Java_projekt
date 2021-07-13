@@ -26,7 +26,11 @@ public class ProjektSortiranje {
     }
     
     public Ekran getTrenutniEkran(){
-        return ekrani.get(ekrani.size()-1);
+        if (ekrani.size()!= 0) {
+            return ekrani.get(ekrani.size()-1);
+        }
+        else
+            return null;
     }
     
     public void pushEkran (Ekran ekran){
