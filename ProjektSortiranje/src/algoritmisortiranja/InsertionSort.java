@@ -6,6 +6,7 @@ public class InsertionSort implements SortSucelje{
     private long korakOdgode = 1;
   
     @Override public void pokreniSortiranje(PoljeSort polje) {
+        long time1 = System.currentTimeMillis(); //ovo
         for (int i = 0; i < polje.velicinaPolja(); i++) {
             int kljuc = polje.vrijednost(i);
             int j = i - 1;
@@ -15,6 +16,9 @@ public class InsertionSort implements SortSucelje{
             }
             polje.updateJednog(j + 1, kljuc, odgoda(), true);
         }
+        long time2 = System.currentTimeMillis(); //ovo
+        long time = time2 - time1; //ovo
+        System.out.println(time); //ovo
     }
 
     @Override public String getIme() {

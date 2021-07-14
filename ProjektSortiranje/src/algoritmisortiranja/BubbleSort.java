@@ -1,12 +1,16 @@
 
 package algoritmisortiranja;
 
+import javax.swing.JFrame;
 import projektsortiranje.PoljeSort;
 
 public class BubbleSort implements SortSucelje {
-    private long korakOdgode = 2;
     
+    private JFrame prozor; //ovo
+    private long korakOdgode = 2;
+       
     @Override public void pokreniSortiranje(PoljeSort polje){
+       long time1 = System.currentTimeMillis(); //ovo
        int len = polje.velicinaPolja();
         for (int i = 0; i < len - 1; i++) {
             for (int j = 0; j < len - i - 1; j++) {
@@ -15,6 +19,13 @@ public class BubbleSort implements SortSucelje {
                 }
             }
         }
+        long time2 = System.currentTimeMillis(); //ovo
+        long time = time2 - time1; //ovo
+        System.out.println(time); //ovo
+        
+        
+        prozor = new JFrame ("Vrijeme Sortiranja"); //ovo
+        prozor.pack(); //ovo
     }
             
     @Override public String getIme(){

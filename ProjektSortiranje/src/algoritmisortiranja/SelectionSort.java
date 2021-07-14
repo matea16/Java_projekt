@@ -6,6 +6,8 @@ public class SelectionSort implements SortSucelje{
     private long korakOdgode = 120;
    
     @Override public void pokreniSortiranje(PoljeSort polje) {
+        long time1 = System.currentTimeMillis(); //ovo
+        
         int d = polje.velicinaPolja();
         for (int i = 0; i < d - 1; i++) {
             int minIndex = i;
@@ -16,6 +18,9 @@ public class SelectionSort implements SortSucelje{
             }
             polje.swap(i, minIndex, odgoda(), true);
         }
+        long time2 = System.currentTimeMillis(); //ovo
+        long time = time2 - time1; //ovo
+        System.out.println(time); //ovo
     }
 
     @Override public String getIme() {

@@ -19,8 +19,14 @@ public class ParallelMergeSort implements SortSucelje {
 
     @Override
     public void pokreniSortiranje(PoljeSort polje) {
+        long time1 = System.currentTimeMillis(); //ovo
+
         ForkJoinPool pool = new ForkJoinPool();
         pool.invoke(new ParalelnoSortiranje(polje, 0, polje.velicinaPolja() - 1, korakOdgode));
+        
+        long time2 = System.currentTimeMillis(); //ovo
+        long time = time2 - time1; //ovo
+        System.out.println(time); //ovo
         
     }
 

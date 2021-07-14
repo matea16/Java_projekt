@@ -27,7 +27,13 @@ public class QuickSort implements SortSucelje{
     }
 
     @Override public void pokreniSortiranje(PoljeSort polje) {
+        long time1 = System.currentTimeMillis(); //ovo
+        
         quickSort(polje, 0, polje.velicinaPolja() - 1);
+        
+        long time2 = System.currentTimeMillis(); //ovo
+        long time = time2 - time1; //ovo
+        System.out.println(time); //ovo
     }
 
     @Override public String getIme() {
