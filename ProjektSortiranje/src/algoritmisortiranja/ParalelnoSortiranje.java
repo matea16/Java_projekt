@@ -11,7 +11,7 @@ import projektsortiranje.PoljeSort;
 
 /**
  *
- * @author juricaradenic
+ * @author martinaradenic
  */
 public class ParalelnoSortiranje extends RecursiveAction{
     
