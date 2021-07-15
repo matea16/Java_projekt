@@ -57,13 +57,13 @@ public class MergeSort implements SortSucelje{
     }
 
     @Override public void pokreniSortiranje(PoljeSort polje) {
-        long time1 = System.currentTimeMillis(); //ovo
+        long time1 = System.currentTimeMillis(); 
         int lijevo = 0;
         int desno = polje.velicinaPolja() - 1;
         mergeSort(polje, lijevo, desno);
-        long time2 = System.currentTimeMillis(); //ovo
-        long time = time2 - time1; //ovo
-        System.out.println(time); //ovo
+        long time2 = System.currentTimeMillis(); 
+        long time = time2 - time1; 
+        System.out.println(time); 
     }
 
     @Override public String getIme() {

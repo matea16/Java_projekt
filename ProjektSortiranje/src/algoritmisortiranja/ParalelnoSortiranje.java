@@ -29,19 +29,18 @@ public class ParalelnoSortiranje extends RecursiveAction{
  
     @Override
     protected void compute() {
-        long time1 = System.currentTimeMillis(); //ovo
+    
         if (veci - manji < 2) {
             if (polje.vrijednost(manji) >= polje.vrijednost(veci) ) {
                 polje.swap(manji, veci, korakOdgode, true);
             }
         } else if (manji < veci) {
             int sredina = (manji + veci) / 2;
-            invokeAll(new ParalelnoSortiranje(polje, manji, sredina, korakOdgode), new ParalelnoSortiranje(polje, sredina + 1, veci, korakOdgode));
+            invokeAll(new ParalelnoSortiranje(polje, manji, sredina, korakOdgode), 
+                    new ParalelnoSortiranje(polje, sredina + 1, veci, korakOdgode));
             merge(polje, manji, sredina, veci);
         }
-        long time2 = System.currentTimeMillis(); //ovo
-        long time = time2 - time1; //ovo
-        System.out.println(time); //ovo
+        
     }
     
     private int[] getSubArray(PoljeSort polje, int pocetak, int velicina) {

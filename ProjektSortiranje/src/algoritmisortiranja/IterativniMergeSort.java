@@ -7,13 +7,13 @@ public class IterativniMergeSort implements SortSucelje{
 	
 	@Override public void pokreniSortiranje(PoljeSort polje) 
 	{
-                long time1 = System.currentTimeMillis(); //ovo
+                long time1 = System.currentTimeMillis(); 
 		for(int exp = 1; exp < polje.velicinaPolja(); exp <<= 1)
 			for(int k = 0, j = exp+exp, s = polje.velicinaPolja()-exp; k<s; k+=j)
 				merge(polje, k, exp);
-                long time2 = System.currentTimeMillis(); //ovo
-                long time = time2 - time1; //ovo
-                System.out.println(time); //ovo
+                long time2 = System.currentTimeMillis(); 
+                long time = time2 - time1; 
+                System.out.println(time); 
 	}
 	
 	private int[] getPotPolje(PoljeSort polje, int poc, int kraj)

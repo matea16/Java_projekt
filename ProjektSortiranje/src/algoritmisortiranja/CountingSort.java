@@ -22,7 +22,7 @@ public class CountingSort implements SortSucelje{
 
 	@Override public void pokreniSortiranje(PoljeSort polje)
 	{
-            long time1 = System.currentTimeMillis(); //ovo
+            long time1 = System.currentTimeMillis(); 
 		int[] rez = new int[polje.velicinaPolja()];
 		int[] brojac = new int[polje.maxVrijednost()+1];		
 		for(int i = 0; i < rez.length; ++i)
@@ -35,9 +35,9 @@ public class CountingSort implements SortSucelje{
 		for(int i = rez.length-1; i > -1; --i)
 			polje.updateJednog(--brojac[rez[i]], rez[i], odgoda(), true);	
                 
-               long time2 = System.currentTimeMillis(); //ovo
-               long time = time2 - time1; //ovo
-               System.out.println(time); //ovo
+               long time2 = System.currentTimeMillis(); 
+               long time = time2 - time1; 
+               System.out.println(time); 
 	}
     
 }
