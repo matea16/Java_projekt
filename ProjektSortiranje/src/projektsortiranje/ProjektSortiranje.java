@@ -31,6 +31,7 @@ public class ProjektSortiranje {
         }
         else
             return null;
+       
     }
     
     public void pushEkran (Ekran ekran){

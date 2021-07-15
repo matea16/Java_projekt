@@ -17,8 +17,8 @@ public class Baza {
         String sql = "SELECT id, ime, vrijeme FROM podaci";
         
         try{
-            var stmt = conn.createStatement();
-            var rs = stmt.executeQuery(sql);
+            Statenment stmt = conn.createStatement();
+            Statement = stmt.executeQuery(sql);
             while(rs.next()){
                 System.out.println(rs.getInt("id") + "\t" + rs.getString("ime") + "\t" + rs.getInt("vrijeme"));
             }
@@ -29,10 +29,9 @@ public class Baza {
     }
     
     public static void insert(String ime, int vrijeme, Connection conn){
-        
-        String sql = "INSERT INTO podaci(ime, godine) VALUES(?,?,?)";
+        String sql = "INSERT INTO podaci(ime, godine) VALUES(?,?)";
         try{
-            var pstmt = conn.prepareStatement(sql);
+            Statement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, ime);
             pstmt.setString(2, Integer.toString(vrijeme));
             pstmt.executeUpdate();
@@ -60,7 +59,7 @@ public class Baza {
         + " vrijeme integer \n"
         + ");";
         try ( Connection conn = DriverManager . getConnection ( url );
-            var stmt = conn . createStatement ()){ 
+            Statement stmt = conn . createStatement ()){ 
             if ( conn != null ) { 
                 System.out.println("Opet uspostavljena veza.");
                 stmt . execute ( sql ) ;
