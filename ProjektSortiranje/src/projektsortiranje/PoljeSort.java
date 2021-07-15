@@ -19,13 +19,13 @@ import javax.swing.JPanel;
 public class PoljeSort extends JPanel{
     public static final int DEFAULT_PROZOR_SIRINA = 1280;
     public static final int DEFAULT_PROZOR_VISINA = 720;
-    private static final int DEFAULT_BAR_SIRINA = 5;
+    private static final int DEFAULT_STUPCI_SIRINA = 5;
    
-    private static final double BAR_VISINA_POSTOTAK = 512.0/720.0;
-    private static final int BROJ_BAROVA = DEFAULT_PROZOR_SIRINA / DEFAULT_BAR_SIRINA;
+    private static final double STUPAC_VISINA_POSTOTAK = 512.0/720.0;
+    private static final int BROJ_STUPACA = DEFAULT_PROZOR_SIRINA / DEFAULT_STUPCI_SIRINA;
     
     private final int[] polje;
-    private final int[] barBoja;
+    private final int[] stupacBoja;
     private String imeAlgoritma = "";
     
     private SortSucelje algoritam;
@@ -38,11 +38,11 @@ public class PoljeSort extends JPanel{
 
     public PoljeSort() {
         setBackground(Color.DARK_GRAY);
-        polje = new int[BROJ_BAROVA];
-        barBoja = new int[BROJ_BAROVA];
-        for (int i = 0; i < BROJ_BAROVA; i++) {
+        polje = new int[BROJ_STUPACA];
+        stupacBoja = new int[BROJ_STUPACA];
+        for (int i = 0; i < BROJ_STUPACA; i++) {
             polje[i] = i;
-            barBoja[i] = 0;
+            stupacBoja[i] = 0;
         }
 
     }
@@ -76,15 +76,15 @@ public class PoljeSort extends JPanel{
         polje[prviIndeks] = polje[drugiIndeks];
         polje[drugiIndeks] = temp;
         
-        barBoja[prviIndeks] = 100;
-        barBoja[drugiIndeks] = 100;
+        stupacBoja[prviIndeks] = 100;
+        stupacBoja[drugiIndeks] = 100;
         
         finalUpdate ((polje[prviIndeks] + polje[drugiIndeks]) / 2, milisekunde, korak);
     }
     
     public void updateJednog (int indeks, int vrijednost, long milisekunde, boolean korak) {
         polje[indeks] = vrijednost;
-        barBoja[indeks] = 100;
+        stupacBoja[indeks] = 100;
         
         finalUpdate(vrijednost, milisekunde, korak);
         repaint();
@@ -112,8 +112,8 @@ public class PoljeSort extends JPanel{
     }
     
     public void resetBoje() {
-        for (int i = 0; i < BROJ_BAROVA; i++) {
-            barBoja[i] = 0;
+        for (int i = 0; i < BROJ_STUPACA; i++) {
+            stupacBoja[i] = 0;
         }
         repaint();
     }
@@ -139,8 +139,8 @@ public class PoljeSort extends JPanel{
     }
     
     private void crtajBarove(Graphics2D panelGraphics) {
-        int barSirina = getWidth() / BROJ_BAROVA;
-		int bufferedImageSirina = barSirina * BROJ_BAROVA;
+        int barSirina = getWidth() / BROJ_STUPACA;
+		int bufferedImageSirina = barSirina * BROJ_STUPACA;
 		int bufferedImageVisina = getHeight();
         
 		if(bufferedImageVisina > 0 && bufferedImageSirina > 0) {
@@ -156,15 +156,15 @@ public class PoljeSort extends JPanel{
 			{
 				bufferedGraphics = bufferedImage.createGraphics();
 				
-				for (int x = 0; x < BROJ_BAROVA; x++) {
+				for (int x = 0; x < BROJ_STUPACA; x++) {
 					double trenutnaVrijednost = vrijednost(x);
 					double postotakOdMax = trenutnaVrijednost / maxVrijednost;
-					double visinaPostotakPloce = postotakOdMax * BAR_VISINA_POSTOTAK;
+					double visinaPostotakPloce = postotakOdMax * STUPAC_VISINA_POSTOTAK;
 					int visina = (int) (visinaPostotakPloce * (double) getHeight());
 					int xPocetak = x + (barSirina - 1) * x;
 					int yPocetak = getHeight() - visina;
 					
-					int val = barBoja[x] * 2;
+					int val = stupacBoja[x] * 2;
 					if (val > 190) {
 						bufferedGraphics.setColor(new Color(255 - val, 255, 255 - val));
 					}
@@ -172,8 +172,8 @@ public class PoljeSort extends JPanel{
 						bufferedGraphics.setColor(new Color(255, 255 - val, 255 - val));
 					}
 					bufferedGraphics.fillRect(xPocetak, yPocetak, barSirina, visina);
-					if (barBoja[x] > 0) {
-						barBoja[x] -= 5;
+					if (stupacBoja[x] > 0) {
+						stupacBoja[x] -= 5;
 					}
 				}
 			}
